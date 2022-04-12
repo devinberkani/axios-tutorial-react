@@ -8,7 +8,18 @@ const Headers = () => {
   const [joke, setJoke] = useState('random dad joke');
 
   const fetchDadJoke = async () => {
-    console.log('fetch dad joke');
+    try {
+      //header makes response json only
+      const response = await axios(url, {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      const data = response.data;
+      setJoke(data.joke);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
